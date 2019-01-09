@@ -3,6 +3,11 @@ from config.TicketEnmu import ticket
 from myException.PassengerUserException import PassengerUserException
 import wrapcache
 
+try:
+    xrange          # Python 2
+except NameError:
+    xrange = range  # Python 3
+
 
 class getPassengerDTOs:
     """
@@ -33,6 +38,7 @@ class getPassengerDTOs:
             elif getPassengerDTOsResult.get('messages', False):
                 print(getPassengerDTOsResult.get('messages', False))
             else:
+                print(getPassengerDTOsResult)
                 raise PassengerUserException(ticket.DTO_NOT_FOUND)
 
     def getPassengerTicketStr(self, set_type):
@@ -51,6 +57,7 @@ class getPassengerDTOs:
             '软座': 2,
             '软卧': 4,
             '硬卧': 3,
+            '动卧': 1,
         }
         return str(passengerTicketStr[set_type.replace(' ', '')])
 
